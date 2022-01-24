@@ -820,6 +820,40 @@ function uiDrawCol(obj, deep) {
 }
 
 
+function uiDrawExisted() {
+
+    for (var i = 0; i < colNames.length; i++) {
+        selectedCol = i;
+    uiDrawNewCol(colNames[i]);
+        uiDrawCol(main[i], -1);
+    }
+}
+
+
+function exportJSON() {
+
+    document.getElementById('textExport').value = JSON.stringify({
+        structury: main,
+        colNames,
+        selectedCol
+    });
+
+}
+
+function importJSON() {
+
+
+    try {
+        a = JSON.parse(document.getElementById('textImport').value);
+        main = a.structury;
+        colNames = a.colNames;
+        selectedCol = a.selectedCol;
+        uiDrawExisted();
+    } catch (e) {
+        alert(e); // error in the above string (in this case, yes)!
+    }
+
+}
 
 function run() {
     var command = document.getElementById('consoleText').value.split(' ');
@@ -930,7 +964,7 @@ function run() {
 
 for (var i = 0; i < colNames.length; i++) {
     selectedCol = i;
-    uiDrawNewCol(i);
+    uiDrawNewCol(colNames[i]);
     uiDrawCol(main[i], -1);
 }
 
