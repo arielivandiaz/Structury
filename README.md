@@ -12,4 +12,6 @@ Create diagrams using unix commands to define folder structures
     - About page
     - Support page
     - Contact page
+    - Onclick hidde childs
+    - Differents cols improt
     

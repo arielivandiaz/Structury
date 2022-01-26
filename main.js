@@ -810,10 +810,12 @@ function uiDrawCol(obj, deep) {
             newDiv.id = "col_" + (selectedCol + 1) + "_" + "deep_" + deep + "_" + objKeys[i];
 
             parent.appendChild(newDiv);
-            if (Object.keys(obj[objKeys[i]].childs)) {
+    
+            if (obj[objKeys[i]] !== undefined && obj[objKeys[i]] !== false)
+                if (Object.keys(obj[objKeys[i]].childs)) {
 
-                uiDrawCol(obj[objKeys[i]].childs, deep);
-            }
+                    uiDrawCol(obj[objKeys[i]].childs, deep);
+                }
 
         }
     }
@@ -824,7 +826,7 @@ function uiDrawExisted() {
 
     for (var i = 0; i < colNames.length; i++) {
         selectedCol = i;
-    uiDrawNewCol(colNames[i]);
+        uiDrawNewCol(colNames[i]);
         uiDrawCol(main[i], -1);
     }
 }
@@ -850,6 +852,7 @@ function importJSON() {
         selectedCol = a.selectedCol;
         uiDrawExisted();
     } catch (e) {
+        console.log(e);
         alert(e); // error in the above string (in this case, yes)!
     }
 
