@@ -28,13 +28,80 @@
             font-size: 80%
         }
 
+
+
         .item {
             border-radius: 0px 10px 10px 10px;
             padding: 5px;
-            background: var(--main_color);
             color: var(--text_color_alt);
             margin-top: 2px
         }
+
+
+
+        .item.deep_0 {
+            background: var(--main_color);
+        }
+
+        .item.deep_1 {
+            background: #4F91FF;
+        }
+
+        .item.deep_2 {
+            background: #71A6FF;
+        }
+
+        .item.deep_3 {
+            background: #9DC2FF;
+        }
+
+        .item.deep_4 {
+            background: #B9D3FF;
+        }
+
+
+        .item.deep_5 {
+            background: #B9D3FF;
+        }
+
+        .item.alt {
+            border-radius: none;
+            padding: 5px;
+            background: red;
+            margin-top: 2px;
+            margin-left: 4px;
+            background: none;
+        }
+
+        
+        
+        
+
+        .item.alt.deep_0 {
+            color: var(--main_color);
+        }
+
+        .item.alt.deep_1 {
+            color: #4F91FF;
+        }
+
+        .item.alt.deep_2 {
+            color: #71A6FF;
+        }
+
+        .item.alt.deep_3 {
+            color: #9DC2FF;
+        }
+
+        .item.alt.deep_4 {
+            color: #B9D3FF;
+        }
+
+
+        .item.alt.deep_5 {
+            color: #B9D3FF;
+        }
+
 
         .col.selected span {
             font-size: 150%;
@@ -226,6 +293,8 @@
             <li><span>col <i>"colname"</i></span> : move cursor to the selected col by name</li>
             <li><span>col <i>"colnumber"</i></span> : move cursor to the selected col by number of col</li>
             <li><span>mkdir <i>"name"</i> </span> : create a item named "name"</li>
+            <li><span>file <i>"name"</i> </span> : create a item named "name"</li>
+            <li><span>nano <i>"name"</i> </span> : create a item named "name"</li>
             <li><span>cd <i>"name"</i> </span> : get in the folder named "name"</li>
             <li><span>cd .. </span> : move to upper folder</li>
             <li><span>rm <i>"name"</i> </span> : delete in the folder named "name"</li>

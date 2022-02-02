@@ -490,6 +490,73 @@ function mkdir(dir) {
 }
 
 
+function newfile(dir) {
+
+    switch (cursor.length) {
+        case 0:
+            if (main[selectedCol][dir] !== undefined) {
+                uiSetMsg('Already Exist', 0);
+            } else {
+                main[selectedCol][dir] = emptyChild(2);
+                uiSetMsg('Created', 1);
+                return "col_" + (selectedCol + 1) + "_" + "deep_" + cursor.length + "_" + dir;
+            }
+            break;
+
+        case 1:
+            console.log("case 1");
+            if (main[selectedCol][cursor[0]].childs[dir] !== undefined) {
+                uiSetMsg('Already Exist', 0);
+            } else {
+                main[selectedCol][cursor[0]].childs[dir] = emptyChild(2);
+                uiSetMsg('Created', 1);
+                return "col_" + (selectedCol + 1) + "_" + "deep_" + cursor.length + "_" + dir;
+            }
+            break;
+        case 2:
+            console.log("case 2");
+            if (main[selectedCol][cursor[0]].childs[cursor[1]].childs[dir] !== undefined) {
+                uiSetMsg('Already Exist', 0);
+            } else {
+                main[selectedCol][cursor[0]].childs[cursor[1]].childs[dir] = emptyChild(2);
+                uiSetMsg('Created', 0);
+                return "col_" + (selectedCol + 1) + "_" + "deep_" + cursor.length + "_" + dir;
+            }
+            break;
+        case 3:
+            if (main[selectedCol][cursor[0]].childs[cursor[1]].childs[cursor[2]].childs[dir] !== undefined) {
+                uiSetMsg('Already Exist', 0);
+            } else {
+                main[selectedCol][cursor[0]].childs[cursor[1]].childs[cursor[2]].childs[dir] = emptyChild(2);
+                uiSetMsg('Created', 0);
+                return "col_" + (selectedCol + 1) + "_" + "deep_" + cursor.length + "_" + dir;
+            }
+            break;
+        case 4:
+            if (main[selectedCol][cursor[0]].childs[cursor[1]].childs[cursor[2]].childs[cursor[3]].childs[dir] !== undefined) {
+                uiSetMsg('Already Exist', 0);
+            } else {
+                main[selectedCol][cursor[0]].childs[cursor[1]].childs[cursor[2]].childs[cursor[3]].childs[dir] = emptyChild(2);
+                uiSetMsg('Created', 0);
+                return "col_" + (selectedCol + 1) + "_" + "deep_" + cursor.length + "_" + dir;
+            }
+            break;
+        case 5:
+            if (main[selectedCol][cursor[0]].childs[cursor[1]].childs[cursor[2]].childs[cursor[3]].childs[cursor[4]].childs[dir] !== undefined) {
+                uiSetMsg('Already Exist', 0);
+            } else {
+                main[selectedCol][cursor[0]].childs[cursor[1]].childs[cursor[2]].childs[cursor[3]].childs[cursor[4]].childs[dir] = emptyChild(2);
+                uiSetMsg('Created', 0);
+                return "col_" + (selectedCol + 1) + "_" + "deep_" + cursor.length + "_" + dir;
+            }
+            break;
+        default:
+            uiSetMsg("Can't create new item. Max cursor deep is 5", 0);
+            break;
+    }
+}
+
+
 function getCurrentObjKeys() {
     switch (cursor.length) {
         case 0:
@@ -802,7 +869,13 @@ function uiDrawCol(obj, deep) {
 
             var newContent = document.createTextNode(objKeys[i]);
             newDiv.appendChild(newContent);
-            newDiv.classList.add("item");
+            newDiv.classList.add("item", "deep_" + deep);
+
+            console.log(obj[objKeys[i]]);
+            if (obj[objKeys[i]].properties.type == 2) {
+                console.log("if 2");
+                newDiv.classList.add("alt");
+            }
 
 
 
@@ -810,7 +883,7 @@ function uiDrawCol(obj, deep) {
             newDiv.id = "col_" + (selectedCol + 1) + "_" + "deep_" + deep + "_" + objKeys[i];
 
             parent.appendChild(newDiv);
-    
+
             if (obj[objKeys[i]] !== undefined && obj[objKeys[i]] !== false)
                 if (Object.keys(obj[objKeys[i]].childs)) {
 
@@ -842,6 +915,7 @@ function exportJSON() {
 
 }
 
+
 function importJSON() {
 
 
@@ -851,6 +925,7 @@ function importJSON() {
         colNames = a.colNames;
         selectedCol = a.selectedCol;
         uiDrawExisted();
+        uiAddToggleChildsOnclick();
     } catch (e) {
         console.log(e);
         alert(e); // error in the above string (in this case, yes)!
@@ -872,6 +947,52 @@ function run() {
                     break;
                 } else {
                     var newIdItem = mkdir(command[1]);
+
+
+                    uiClearCol();
+
+                    uiDrawCol(main[selectedCol], -1);
+                    uiSetTarget();
+                    addClass(newIdItem, 'entrace');
+                    break;
+
+                }
+            } else {
+                uiSetMsg('need a col', 0);
+                break;
+            }
+            break;
+        case 'file':
+
+            if (selectedCol >= 0) {
+                if (!command[1]) {
+                    uiSetMsg('need a name', 0);
+                    break;
+                } else {
+                    var newIdItem = newfile(command[1]);
+
+
+                    uiClearCol();
+
+                    uiDrawCol(main[selectedCol], -1);
+                    uiSetTarget();
+                    addClass(newIdItem, 'entrace');
+                    break;
+
+                }
+            } else {
+                uiSetMsg('need a col', 0);
+                break;
+            }
+            break;
+        case 'nano':
+
+            if (selectedCol >= 0) {
+                if (!command[1]) {
+                    uiSetMsg('need a name', 0);
+                    break;
+                } else {
+                    var newIdItem = newfile(command[1]);
 
 
                     uiClearCol();
